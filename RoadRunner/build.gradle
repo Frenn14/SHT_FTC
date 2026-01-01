@@ -1,0 +1,42 @@
+import java.text.SimpleDateFormat
+
+plugins {
+    id 'com.android.library'
+}
+
+repositories { maven { url = 'https://maven.brott.dev/' } }
+
+android {
+    namespace "com.robotice.roadrunner"
+
+    compileSdkVersion 35
+
+    defaultConfig {
+        minSdkVersion 24
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 35
+        buildConfigField "String", "APP_BUILD_TIME", '"' + (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ROOT).format(new Date())) + '"'
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+        coreLibraryDesugaringEnabled true
+    }
+}
+dependencies {
+    implementation project(':FtcRobotController')
+    implementation project(':FtcDashboard')
+    implementation "com.acmerobotics.roadrunner:ftc:0.1.25"
+    implementation "com.acmerobotics.roadrunner:core:1.0.1"
+    implementation "com.acmerobotics.roadrunner:actions:1.0.1"
+    implementation "com.acmerobotics.dashboard:dashboard:0.5.1"
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+}
