@@ -20,7 +20,7 @@
 # Update List
 
 ## Beta v1.0 (2026-1-3)
-#### SHTOpMode 클래스를 기반으로 하는 @TeleOp 및 @Autonomous 개발 환경 구축 및 하드웨어 객체 MecannumBase 클래스 추가
+#### SHTOpMode 클래스를 구축 및 하드웨어 객체 MecannumBase 클래스 추가
 
 1. SHTOpMode 클래스를 기반으로 하는 @TeleOp 및 @Autonomous 개발 환경 구축
    * `@TeleOp` 및 `@Autonomous` 개발 환경 구축 시에 `SHTOpMode`를 상속하여 사용 가능
