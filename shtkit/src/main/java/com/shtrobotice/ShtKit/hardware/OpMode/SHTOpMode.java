@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.shtrobotice.ShtKit.hardware.Hardware;
 
 public abstract class SHTOpMode extends LinearOpMode {
-    public volatile Hardware hardware = null;
+    public volatile Hardware hardware;
 
     @Override
     public final void runOpMode() {
