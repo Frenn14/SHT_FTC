@@ -16,6 +16,8 @@
 * #### Class
   * SHTOpMode    
   * MecannumBase
+  * SimpleCamera
+  * LimeLight
 
 # Update List
 

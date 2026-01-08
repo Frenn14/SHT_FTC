@@ -8,17 +8,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.function.Supplier;
 
 public abstract strictfp class DriveBase {
+    protected HardwareMap hm;
     protected DcMotor lf, lb, rf, rb;
     protected Supplier<Float> inX, inY, inRot;
-    public DriveBase(HardwareMap hardwareMap, String leftFront, String leftBack, String rightFront, String rightBack, Gamepad gamepad) {
+    public DriveBase(HardwareMap hardwareMap, Gamepad gamepad, String leftFront, String leftBack, String rightFront, String rightBack) {
         this(hardwareMap, leftFront, leftBack, rightFront, rightBack);
         initInput(gamepad);
     }
     public DriveBase(HardwareMap hardwareMap, String leftFront, String leftBack, String rightFront, String rightBack) {
-        lf = hardwareMap.get(DcMotor.class, leftFront);
-        lb = hardwareMap.get(DcMotor.class, leftBack);
-        rf = hardwareMap.get(DcMotor.class, rightFront);
-        rb = hardwareMap.get(DcMotor.class, rightBack);
+        this.hm = hardwareMap;
+
+        lf = hm.get(DcMotor.class, leftFront);
+        lb = hm.get(DcMotor.class, leftBack);
+        rf = hm.get(DcMotor.class, rightFront);
+        rb = hm.get(DcMotor.class, rightBack);
 
         setBreak(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -26,7 +29,7 @@ public abstract strictfp class DriveBase {
     }
     public final void initInput(Gamepad gamepad) {
         inX     = ()->gamepad.left_stick_x;
-        inY     = ()->gamepad.left_stick_y;
+        inY     = ()->-(gamepad.left_stick_y);
         inRot   = ()->gamepad.right_stick_x;
     }
     public void setBreak(DcMotor.ZeroPowerBehavior brake) {

@@ -1,19 +1,20 @@
 package com.shtrobotice.ShtKit.hardware.OpMode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.shtrobotice.ShtKit.hardware.Hardware;
+import com.shtrobotice.ShtKit.hardware.hardware;
 
 public abstract class SHTOpMode extends LinearOpMode {
-    public volatile Hardware hardware;
+    public volatile com.shtrobotice.ShtKit.hardware.hardware hardware;
 
     @Override
     public final void runOpMode() {
-        hardware = new Hardware(hardwareMap,gamepad1,gamepad2);
+        hardware = new hardware(hardwareMap,gamepad1,gamepad2);
         Init();
         waitForStart();
         Start();
         while (opModeIsActive()) {
             Loop();
+
         }
     }
     public void Init() {}
