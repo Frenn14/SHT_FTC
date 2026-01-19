@@ -28,7 +28,7 @@ public class MecannumBase extends DriveBase {
         if (headlessClass.equals(GoBildaPinpointDriver.class)) {
             GoBildaPinpointDriver pp = hm.get(GoBildaPinpointDriver.class, name);
             pp.resetPosAndIMU();
-            getHeading = ()->{ pp.update(); return pp.getHeading(AngleUnit.RADIANS); };
+            getHeading = ()->{ pp.update(GoBildaPinpointDriver.ReadData.ONLY_UPDATE_HEADING); return pp.getHeading(AngleUnit.RADIANS); };
         }
     }
 
@@ -39,9 +39,13 @@ public class MecannumBase extends DriveBase {
         double r = inRot.get();
 
         if(getHeading != null) {
-            double h = (reversed) ? -(getHeading.get()) : getHeading.get();
-            x = x * Math.cos(h) - y * Math.sin(h);
-            y = x * Math.sin(h) + y * Math.cos(h);
+            double h = (reversed) ? getHeading.get() : -(getHeading.get());
+
+            double tx = x * Math.cos(h) - y * Math.sin(h);
+            double ty = x * Math.sin(h) + y * Math.cos(h);
+
+            x = tx;
+            y = ty;
         }
 
         double lfp = y + x + r;
