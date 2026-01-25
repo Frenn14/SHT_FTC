@@ -7,9 +7,9 @@ import com.shtrobotice.ShtKit.hardware.DriveBase.Mecannum.MecannumBase;
 
 public class hardware {
 
-    static HardwareMap hm = null;
-    static volatile Gamepad gamepad1 = null;
-    static volatile Gamepad gamepad2 = null;
+    volatile HardwareMap hm;
+    volatile Gamepad gamepad1;
+    volatile Gamepad gamepad2;
 
     public hardware(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2) {
         this.hm = hardwareMap;
@@ -17,20 +17,18 @@ public class hardware {
         this.gamepad2 = gamepad2;
     }
 
-    public final static <T> T get(Class<? extends T> driveBaseClass, String leftFrontMotor,String leftBackMotor,String rightFrontMotor,String rightBackMotor) {
-        T rs = null;
+    public final MecannumBase get(Class<? extends MecannumBase> driveBaseClass, String leftFrontMotor,String leftBackMotor,String rightFrontMotor,String rightBackMotor) {
         try {
-            if (driveBaseClass.equals(MecannumBase.class)) {rs = (T) new MecannumBase(hm, gamepad1, leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);}
-            return rs;
+            return new MecannumBase(hm, gamepad1, leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
         } catch (Exception e) {
             throw new RuntimeException(String.format("베이스 '" + driveBaseClass.getSimpleName() + "'을/를 구성할 수 없습니다."));
         }
     }
 
-    public final static <T> T get(Class<? extends T> classOrInterface, String deviceName) {
-        T rs = null;
+    public final <T> T get(Class<? extends T> classOrInterface, String deviceName) {
+        T rs;
         try {
-            if (classOrInterface.equals(Limelight.class)) rs = (T) new Limelight(hm, deviceName);
+            if (classOrInterface.equals(Limelight.class)) rs = (T) (new Limelight(hm, deviceName));
             else rs = hm.get(classOrInterface, deviceName);
             return rs;
         }
